@@ -11,7 +11,8 @@ export const ChatInterface: React.FC = () => {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    // Removed smooth behavior
+    bottomRef.current?.scrollIntoView();
   }, [messages]);
 
   const handleSend = async () => {
@@ -80,17 +81,15 @@ export const ChatInterface: React.FC = () => {
         ))}
         {loading && (
            <div className="flex justify-start">
-             <div className="bg-white/5 p-4 rounded-2xl rounded-bl-none flex space-x-2 items-center">
-               <div className="w-2 h-2 bg-medic-neonBlue rounded-full animate-bounce" />
-               <div className="w-2 h-2 bg-medic-neonBlue rounded-full animate-bounce delay-75" />
-               <div className="w-2 h-2 bg-medic-neonBlue rounded-full animate-bounce delay-150" />
+             <div className="bg-white/5 p-4 rounded-2xl rounded-bl-none flex space-x-2 items-center text-xs text-gray-400">
+               Thinking...
              </div>
            </div>
         )}
         <div ref={bottomRef} />
       </div>
 
-      <div className="bg-medic-charcoal/80 backdrop-blur p-2 rounded-full border border-white/10 flex items-center">
+      <div className="bg-medic-charcoal p-2 rounded-full border border-white/10 flex items-center">
         <input
           type="text"
           value={input}

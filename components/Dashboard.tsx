@@ -12,23 +12,23 @@ export const Dashboard: React.FC<{ onNavigate: (r: AppRoute) => void }> = ({ onN
       {/* Main Action Card */}
       <div 
         onClick={() => onNavigate(AppRoute.SCAN)}
-        className="glass-card p-6 rounded-3xl relative overflow-hidden group cursor-pointer border-medic-neonBlue/50"
+        className="glass-card p-6 rounded-3xl relative overflow-hidden cursor-pointer border-medic-neonBlue/50"
       >
-        <div className="absolute right-0 top-0 w-32 h-32 bg-medic-neonBlue/20 blur-3xl rounded-full" />
+        <div className="absolute right-0 top-0 w-32 h-32 bg-medic-neonBlue/20 rounded-full" />
         <h2 className="text-2xl font-bold text-white mb-2 relative z-10">Scan Medicine</h2>
         <p className="text-gray-300 text-sm mb-4 max-w-[200px] relative z-10">
           Identify pills, bottles, and prescriptions instantly with Nano Banana AI.
         </p>
         <div className="flex items-center text-medic-neonBlue font-bold text-sm relative z-10">
           <span>START SCAN</span>
-          <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+          <span className="ml-2">→</span>
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div 
             onClick={() => onNavigate(AppRoute.CHAT)}
-            className="glass-card p-5 rounded-3xl hover:bg-white/5 transition-colors cursor-pointer"
+            className="glass-card p-5 rounded-3xl cursor-pointer"
         >
             <span className="text-3xl mb-3 block">💬</span>
             <h3 className="font-bold text-white">Dr. Chat</h3>
@@ -36,7 +36,7 @@ export const Dashboard: React.FC<{ onNavigate: (r: AppRoute) => void }> = ({ onN
         </div>
         <div 
             onClick={() => onNavigate(AppRoute.MAP)}
-            className="glass-card p-5 rounded-3xl hover:bg-white/5 transition-colors cursor-pointer"
+            className="glass-card p-5 rounded-3xl cursor-pointer"
         >
             <span className="text-3xl mb-3 block">🏥</span>
             <h3 className="font-bold text-white">Find Care</h3>

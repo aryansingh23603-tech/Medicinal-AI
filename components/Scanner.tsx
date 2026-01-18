@@ -25,7 +25,7 @@ export const Scanner: React.FC = () => {
       try {
         // Step 1: Nano Banana Enhancement (Visual + Logic)
         setLoadingStep('enhancing');
-        await new Promise(resolve => setTimeout(resolve, 1500)); // Minimum visual time for "Enhancing"
+        await new Promise(resolve => setTimeout(resolve, 500)); // Quick delay
         
         // Step 2: Deep Analysis
         setLoadingStep('analyzing');
@@ -43,15 +43,15 @@ export const Scanner: React.FC = () => {
   return (
     <div className="flex flex-col h-full">
       <header className="mb-6">
-        <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-medic-neonBlue to-white">
+        <h1 className="text-3xl font-bold text-white">
           Scan Medicine
         </h1>
         <p className="text-gray-400 text-sm mt-1">Nano-Banana Enhanced • Gemini Pro Analysis</p>
       </header>
 
       {!image && !result && (
-        <div className="flex-1 flex flex-col items-center justify-center p-6 border-2 border-dashed border-gray-700 rounded-3xl bg-medic-card/30 backdrop-blur-sm">
-           <div className="w-24 h-24 rounded-full bg-medic-neonBlue/10 flex items-center justify-center mb-6 animate-pulse">
+        <div className="flex-1 flex flex-col items-center justify-center p-6 border-2 border-dashed border-gray-700 rounded-3xl bg-medic-card">
+           <div className="w-24 h-24 rounded-full bg-medic-neonBlue/10 flex items-center justify-center mb-6">
              <span className="text-4xl">💊</span>
            </div>
            <p className="text-center text-gray-300 mb-8 max-w-xs">
@@ -59,7 +59,7 @@ export const Scanner: React.FC = () => {
            </p>
            <button 
              onClick={() => fileInputRef.current?.click()}
-             className="px-8 py-4 bg-medic-neonBlue text-black font-bold rounded-full shadow-[0_0_20px_rgba(0,243,255,0.3)] hover:scale-105 transition-transform"
+             className="px-8 py-4 bg-medic-neonBlue text-black font-bold rounded-full"
            >
              Start Scan
            </button>
@@ -75,24 +75,21 @@ export const Scanner: React.FC = () => {
       )}
 
       {image && loadingStep && (
-        <div className="flex-1 flex flex-col items-center justify-center relative rounded-3xl overflow-hidden">
-          <img src={image} alt="Scanning" className="absolute inset-0 w-full h-full object-cover opacity-40 blur-sm" />
-          <div className="z-10 flex flex-col items-center">
-            <div className="w-20 h-20 border-4 border-medic-neonBlue border-t-transparent rounded-full animate-spin mb-6" />
-            <h2 className="text-2xl font-bold text-white tracking-widest uppercase animate-pulse">
+        <div className="flex-1 flex flex-col items-center justify-center relative rounded-3xl overflow-hidden bg-gray-900">
+          <img src={image} alt="Scanning" className="absolute inset-0 w-full h-full object-cover opacity-30" />
+          <div className="z-10 flex flex-col items-center bg-black/80 p-6 rounded-xl">
+            <h2 className="text-2xl font-bold text-white tracking-widest uppercase mb-2">
               {loadingStep === 'enhancing' ? 'Enhancing...' : 'Analyzing...'}
             </h2>
-            <p className="text-medic-neonBlue text-sm mt-2 font-mono">
+            <p className="text-medic-neonBlue text-sm font-mono">
               {loadingStep === 'enhancing' ? 'Applying Nano-Banana Filter' : 'Querying Medical Database'}
             </p>
           </div>
-          {/* Scanning Line */}
-          <div className="absolute top-0 left-0 w-full h-1 bg-medic-neonBlue shadow-[0_0_30px_#00f3ff] animate-[scan_2s_ease-in-out_infinite]" />
         </div>
       )}
 
       {result && (
-        <div className="flex-1 overflow-y-auto pb-24 animate-fade-in">
+        <div className="flex-1 overflow-y-auto pb-24">
           <div className="glass-card p-6 rounded-3xl neon-border mb-6">
             <div className="flex justify-between items-start mb-4">
               <div>
@@ -153,22 +150,6 @@ export const Scanner: React.FC = () => {
            </button>
         </div>
       )}
-      
-      <style>{`
-        @keyframes scan {
-          0% { top: 0%; opacity: 0; }
-          10% { opacity: 1; }
-          90% { opacity: 1; }
-          100% { top: 100%; opacity: 0; }
-        }
-        .animate-fade-in {
-          animation: fadeIn 0.5s ease-out;
-        }
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
     </div>
   );
 };

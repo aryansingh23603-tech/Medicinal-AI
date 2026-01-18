@@ -15,26 +15,25 @@ const NavButton: React.FC<{
 }> = ({ active, onClick, icon, label }) => (
   <button 
     onClick={onClick}
-    className={`flex flex-col items-center justify-center w-full h-full transition-all duration-300 ${
-      active ? 'text-medic-neonBlue scale-110' : 'text-gray-500 hover:text-gray-300'
+    className={`flex flex-col items-center justify-center w-full h-full ${
+      active ? 'text-medic-neonBlue' : 'text-gray-500'
     }`}
   >
     <span className="text-xl mb-1">{icon}</span>
     <span className="text-[10px] font-medium tracking-wider">{label}</span>
     {active && (
-      <div className="absolute top-0 w-8 h-1 bg-medic-neonBlue blur-[4px] rounded-full" />
+      <div className="absolute top-0 w-8 h-1 bg-medic-neonBlue rounded-full" />
     )}
   </button>
 );
 
 export const Layout: React.FC<LayoutProps> = ({ currentRoute, onNavigate, children }) => {
   return (
-    <div className="min-h-screen bg-medic-black text-slate-200 font-sans selection:bg-medic-neonBlue selection:text-black overflow-hidden flex flex-col relative">
+    <div className="min-h-screen bg-medic-black text-slate-200 font-sans overflow-hidden flex flex-col relative">
       
-      {/* Background Ambient Glows */}
-      <div className="fixed top-[-20%] left-[-10%] w-[50%] h-[50%] bg-medic-neonBlue opacity-[0.03] blur-[120px] rounded-full pointer-events-none" />
-      <div className="fixed bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-medic-neonPurple opacity-[0.03] blur-[120px] rounded-full pointer-events-none" />
-
+      {/* Background - Static Colors instead of Blurs for performance */}
+      <div className="fixed top-0 left-0 w-full h-32 bg-gradient-to-b from-medic-neonBlue/5 to-transparent pointer-events-none" />
+      
       {/* Main Content Area */}
       <main className="flex-1 overflow-y-auto pb-24 relative z-10 px-4 pt-6 max-w-2xl mx-auto w-full">
         {children}
@@ -59,11 +58,10 @@ export const Layout: React.FC<LayoutProps> = ({ currentRoute, onNavigate, childr
         <div className="relative -top-6">
           <button 
             onClick={() => onNavigate(AppRoute.SCAN)}
-            className="w-16 h-16 rounded-full bg-gradient-to-tr from-medic-neonBlue to-blue-600 flex items-center justify-center shadow-[0_0_20px_rgba(0,243,255,0.4)] hover:scale-105 transition-transform active:scale-95 text-black text-2xl"
+            className="w-16 h-16 rounded-full bg-medic-neonBlue flex items-center justify-center text-black text-2xl border-4 border-medic-black"
           >
             📸
           </button>
-          <div className="absolute inset-0 rounded-full animate-pulse-fast border border-medic-neonBlue opacity-50 pointer-events-none" />
         </div>
 
         <NavButton 

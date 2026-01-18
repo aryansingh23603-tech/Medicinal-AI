@@ -66,8 +66,8 @@ export const MapFinder: React.FC = () => {
 
       {loading ? (
         <div className="flex-1 flex flex-col items-center justify-center">
-            <div className="w-16 h-16 border-4 border-medic-neonGreen border-t-transparent rounded-full animate-spin mb-4" />
-            <p className="animate-pulse text-medic-neonGreen">Locating best options...</p>
+            <div className="text-medic-neonGreen text-xl font-bold">LOADING...</div>
+            <p className="text-gray-500 mt-2">Locating best options</p>
         </div>
       ) : (
         <div className="flex-1 overflow-y-auto space-y-4">
@@ -89,7 +89,7 @@ export const MapFinder: React.FC = () => {
                         href={mapData.uri} 
                         target="_blank" 
                         rel="noreferrer"
-                        className="block glass-card p-4 rounded-xl hover:bg-white/5 transition-colors border-l-4 border-l-medic-neonGreen"
+                        className="block glass-card p-4 rounded-xl border-l-4 border-l-medic-neonGreen"
                     >
                         <h3 className="font-bold text-lg text-white">{mapData.title}</h3>
                         <p className="text-xs text-gray-500 mt-1 mb-2">Google Maps Verified</p>

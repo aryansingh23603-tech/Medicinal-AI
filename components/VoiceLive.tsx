@@ -3,26 +3,17 @@ import { connectLiveSession } from '../services/gemini';
 
 export const VoiceLive: React.FC = () => {
   const [connected, setConnected] = useState(false);
-  const [volume, setVolume] = useState(0);
   const disconnectRef = useRef<(() => Promise<void>) | null>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number>(0);
 
   const toggleConnection = async () => {
     if (connected) {
       if (disconnectRef.current) await disconnectRef.current();
       setConnected(false);
-      setVolume(0);
     } else {
       try {
         const session = await connectLiveSession(
           (audioBuffer) => {
-             // Simple visualizer logic based on buffer data
-             const data = audioBuffer.getChannelData(0);
-             let sum = 0;
-             for(let i=0; i<data.length; i++) sum += Math.abs(data[i]);
-             const avg = sum / data.length;
-             setVolume(Math.min(avg * 5, 1)); // Amplify for visual
+             // Visualizer removed for performance/no-animation requirement
           },
           () => setConnected(false)
         );
@@ -33,33 +24,6 @@ export const VoiceLive: React.FC = () => {
       }
     }
   };
-
-  // Visualizer Loop
-  useEffect(() => {
-    if (!canvasRef.current) return;
-    const ctx = canvasRef.current.getContext('2d');
-    if (!ctx) return;
-
-    const draw = () => {
-      ctx.clearRect(0, 0, 300, 150);
-      if (connected) {
-          ctx.fillStyle = '#bc13fe'; // Neon Purple
-          const height = 50 + (volume * 100);
-          const width = 50 + (volume * 100);
-          
-          ctx.beginPath();
-          ctx.arc(150, 75, width/2, 0, Math.PI * 2);
-          ctx.fill();
-
-          // Outer Glow
-          ctx.shadowBlur = 20;
-          ctx.shadowColor = '#bc13fe';
-      }
-      animationRef.current = requestAnimationFrame(draw);
-    };
-    draw();
-    return () => cancelAnimationFrame(animationRef.current);
-  }, [connected, volume]);
 
   useEffect(() => {
     return () => {
@@ -75,25 +39,28 @@ export const VoiceLive: React.FC = () => {
       </div>
 
       <div className="relative w-[300px] h-[300px] flex items-center justify-center mb-12">
-        <canvas ref={canvasRef} width={300} height={150} className="absolute inset-0" />
-        
         <button
           onClick={toggleConnection}
-          className={`relative z-10 w-32 h-32 rounded-full border-4 transition-all duration-300 flex items-center justify-center text-4xl shadow-[0_0_30px_rgba(188,19,254,0.3)] ${
+          className={`w-32 h-32 rounded-full border-4 flex items-center justify-center text-4xl ${
             connected 
-              ? 'bg-medic-neonPurple border-white text-white scale-110' 
-              : 'bg-transparent border-medic-neonPurple text-medic-neonPurple hover:bg-medic-neonPurple/10'
+              ? 'bg-medic-neonPurple border-white text-white' 
+              : 'bg-transparent border-medic-neonPurple text-medic-neonPurple'
           }`}
         >
           {connected ? '⬛' : '🎙️'}
         </button>
       </div>
 
-      <p className="text-sm text-gray-500 max-w-xs text-center">
-        {connected 
-          ? "Listening... Speak naturally." 
-          : "Tap the microphone to start a secure voice session with AI."}
-      </p>
+      <div className="text-center">
+        <div className={`text-lg font-bold mb-2 ${connected ? 'text-medic-neonGreen' : 'text-gray-500'}`}>
+            {connected ? "● LIVE SESSION ACTIVE" : "● DISCONNECTED"}
+        </div>
+        <p className="text-sm text-gray-500 max-w-xs mx-auto">
+            {connected 
+            ? "Speak naturally. Tap the square to end." 
+            : "Tap the microphone to start."}
+        </p>
+      </div>
     </div>
   );
 };
