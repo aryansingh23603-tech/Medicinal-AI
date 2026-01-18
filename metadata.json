@@ -1,0 +1,9 @@
+{
+  "name": "Medicinal AI",
+  "description": "AI-powered medicine scanning, intelligence, and personal health assistant.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}
