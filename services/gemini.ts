@@ -2,8 +2,7 @@ import { GoogleGenAI, Type, Schema, LiveServerMessage, Modality } from "@google/
 import { MedicineAnalysis, GroundingChunk } from "../types";
 import { createPcmBlob, decodeAudioData, base64ToUint8Array } from "./audioUtils";
 
-const apiKey = process.env.API_KEY || '';
-const ai = new GoogleGenAI({ apiKey });
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 // --- Image Analysis (Nano Banana + Pro Thinking) ---
 
@@ -110,7 +109,6 @@ export const findNearbyPlaces = async (lat: number, lng: number, query: string):
       config: {
         tools: [{ googleMaps: {} }],
         toolConfig: {
-            googleSearch: undefined, // Explicitly disable search to allow maps
             retrievalConfig: {
                 latLng: {
                     latitude: lat,
